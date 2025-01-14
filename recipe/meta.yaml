@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/asitop-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/asitop-{{ version }}.tar.gz
   sha256: 5df7b59304572a948f71cf94b87adc613869a8a87a933595b1b3e26bf42c3e37
 
 build:
@@ -14,14 +14,14 @@ build:
     - asitop = asitop.asitop:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - python-dashing
     - psutil
 
@@ -33,6 +33,7 @@ test:
     - asitop --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/tlkh/asitop
